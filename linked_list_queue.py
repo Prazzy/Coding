@@ -22,17 +22,20 @@ class LinkedListQueue(object):
     def insert(self, item):
         """ Insert an item into a queue """
         node = Node(item)
-        if self.head.next == None:
+        if self.isEmpty():
             self.head.next = node
         else:
             self.tail.next.next = node
         self.tail.next = node
     
+    def isEmpty(self):
+        return self.head.next == None
+    
     def remove(self):
         """ Remove an item from a queue """
         
         temp = self.head
-        if temp.next == None:
+        if self.isEmpty():
             return -1
         
         if temp.next == self.tail.next:
@@ -44,6 +47,7 @@ class LinkedListQueue(object):
         self.head.next = self.head.next.next
         del temp
         return data
+    
 
 if __name__ == '__main__':
     l1 = LinkedListQueue()
