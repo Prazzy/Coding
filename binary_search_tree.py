@@ -15,6 +15,7 @@ class Node(object):
         self.left = None
         self.right = None
         self.data = data
+        self.items = []
         
     def insert(self, data):
         """ Insert a node into a binary tree """
@@ -47,6 +48,21 @@ class Node(object):
         if self.right:
             self.right.printTreePreOrder()
             
+    def getItems(self, root):
+        if root is None:
+            return 
+        self.items.append(root.data)
+        if self.left:
+            self.getItems(root.left)
+        if self.right:
+            self.getItems(root.right)
+            
+    def count(self):
+        self.items = []
+        root = self
+        self.getItems(root)
+        return len(self.items), self.items
+    
     def printTreePostOrder(self):
         """ Display a tree in an in-order fashion (Left nodes first, root node next and then right node)"""
         if self.left:
@@ -113,6 +129,8 @@ if __name__ == '__main__':
     print root, 8
     root.insert(3)
     root.insert(10)
+    print "\n Size of a tree"
+    print root.count()
     print root.findNode(10)
     root.insert(1)
     root.insert(6)
@@ -121,6 +139,8 @@ if __name__ == '__main__':
     root.insert(14)
     root.insert(13)
     root.printTree()
+    print "\n Size of a tree"
+    print root.count()
     print root.findNode(6)
     print "\nDeleting node having a single child node"
     root.deleteNode(14)
