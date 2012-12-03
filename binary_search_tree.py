@@ -58,10 +58,18 @@ class Node(object):
             self.getItems(root.right)
             
     def count(self):
-        self.items = []
         root = self
-        self.getItems(root)
-        return len(self.items), self.items
+        return self.getCount(root)
+    
+    def getCount(self, root, count=0):
+        if root is None:
+            return count
+        count += 1
+        if root.left:
+            count = self.getCount(root.left, count)
+        if root.right:
+            count = self.getCount(root.right, count)
+        return count
     
     def printTreePostOrder(self):
         """ Display a tree in an in-order fashion (Left nodes first, root node next and then right node)"""
@@ -122,8 +130,64 @@ class Node(object):
         if node is None:
             return 0
         return 1 +  max(self.getHeight(node.left), self.getHeight(node.right))
+    
+    def preorderTraversal(self):
+        """ Pre-order traversal implementation without recursion """
+        
+        root = self
+        stack = NodeStack()
+        stack.push(root)
+        while stack.size() > 0:
+            node = stack.pop()
+            print node.data
+            if node.right:
+                stack.push(node.right)
+            if node.left:
+                stack.push(node.left)
+                
+    def inorderTraversal(self):
+        """ In-order traversal implementation without recursion """
+        #import pdb; pdb.set_trace()
+        root = self
+        stack = NodeStack()
+        stack.push(root)
+        node = root
+        while stack.size() > 0:
+            if node.left:
+                stack.push(node.left)
+                node = node.left
+            else:
+                node = stack.pop()
+                print node.data
+                node.left = None
+                if node.right:
+                    stack.push(node.right)
             
-
+            
+            
+class NodeStack(object):
+    
+    
+    def __init__(self):
+        self.stack = []
+        self.length = 0
+        
+    def isEmpty(self):
+        return self.length == 0
+    
+    def size(self):
+        return self.length
+        
+    def push(self, item):
+        self.length += 1
+        return self.stack.append(item)    
+            
+    def pop(self):
+        if not self.isEmpty():
+            self.length -= 1
+            return self.stack.pop()
+        return -1
+            
 if __name__ == '__main__':
     root = Node(8)
     print root, 8
@@ -153,8 +217,12 @@ if __name__ == '__main__':
     root.printTree()
     print "\nPreorder traversal"
     root.printTreePreOrder()
+    print "\nPreorder traversal with no recursion"
+    root.preorderTraversal()
     print "\nPostorder traversal"
     root.printTreePostOrder()
     print "\nHeight of teh tree"
     print root.getHeight()
+    print "\nIn-order traversal with no recursion"
+    root.inorderTraversal()
     
