@@ -9,7 +9,7 @@ import multiprocessing
 
 from multiprocessing.managers import SyncManager
 
-IP_ADDRESS = '10.104.1.51'
+IP_ADDRESS = ''
 PORT_NUM = 50000
 
 class MWorker(object):
@@ -24,17 +24,17 @@ class MWorker(object):
         return m
     
     def run_client(self):
-        manager = self.make_client()
+	manager = self.make_client()
         
         in_queue = manager.get_job_q()
         out_queue = manager.get_result_q()
         
-        #procs_num = in_queue.get()
         procs = []
-        
-        #self.word_count(in_queue, out_queue)
+	# Fetch the text blob collection from the queue
         words_list = in_queue.get()
+	# Check if the queue is empty
         if words_list == -1: return
+	# Create sub process for processing the text blobs concurrently
         for i in words_list:
             p = multiprocessing.Process(
                     target=self.word_count,
@@ -42,6 +42,7 @@ class MWorker(object):
             procs.append(p)
             p.start()
      
+	
         for p in procs:
             p.join()
         

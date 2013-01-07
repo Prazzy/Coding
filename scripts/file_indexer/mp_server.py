@@ -12,7 +12,7 @@ from multiprocessing.managers import SyncManager
 
 # Constants
 
-IP_ADDRESS = '192.168.2.101'
+IP_ADDRESS = ''
 PORT_NUM = 50000
 WORKERS_COUNT = 3
 TEXT1 = """On the sultry third of July, 1778, Fred Godfrey, a sturdy youth of eighteen years, was riding at a breakneck speed down the Wyoming Valley, in the direction of the settlement, from which he saw columns of smoke rolling upward, and whence, during the few pauses of his steed, he heard the rattling discharge of firearms and the shouts of combatants.
@@ -98,15 +98,16 @@ class MServer(object):
         input_q = manager.get_job_q()      
         output_q = manager.get_result_q()
         input_len = len(TEXT_COLLECTION)    
-        print input_len
-        # The Text collections are split into chunks. Each chunk is pushed into the job queue.
+        
+	# The Text collections are split into chunks. Each chunk is pushed into the job queue.
         chunk_size = int(math.ceil(input_len / float(WORKERS_COUNT)))
-        print chunk_size
-        # Chunk size is taken as process number for client
+        
+	# Chunk size is taken as process number for client
         #input_q.insert(chunk_size)
         for i in range(0, input_len, chunk_size):
             input_q.put(TEXT_COLLECTION[i:i+chunk_size])
-        # Wait until all results are ready in output_q    
+        
+	# Wait until all results are ready in output_q    
         output = []
         counter = 0         
         print "Waiting for responses from workers...\n"
@@ -116,7 +117,8 @@ class MServer(object):
                 #print "Got response from worker %s.\n" % str(counter+1)
                 output.extend(data)
                 counter += 1
-        # Print a master collection of top 10 words with count
+        
+	# Print a master collection of top 10 words with count
         self.printWordsCount(output)  
         
         # Sleep a bit before shutting down the server - to give clients time to
@@ -126,7 +128,6 @@ class MServer(object):
         
     
     def printWordsCount(self, result):
-        
         out_dict = collections.OrderedDict()
         for i in result:    
             if i in out_dict.keys():

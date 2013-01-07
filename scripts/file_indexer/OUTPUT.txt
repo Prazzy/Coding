@@ -1,0 +1,36 @@
+Sample Output:
+
+Server:
+
+zeltmac03:file_indexer pshilavantar$ python mp_server.py 
+Starting Server at 50000 port number.....
+
+Waiting for responses from workers...
+
+Word 		 Count
+************************************************************
+Fred 		 33
+was 		 114
+a 		 69
+handsome 		 3
+athletic 		 3
+youngster 		 3
+and 		 183
+he 		 81
+sat 		 3
+his 		 114
+
+Worker:
+
+zeltmac03:file_indexer pshilavantar$ python mp_worker.py 
+Client connecting to a server....
+
+Job done.
+zeltmac03:file_indexer pshilavantar$ python mp_worker.py 
+Client connecting to a server....
+
+Job done.
+zeltmac03:file_indexer pshilavantar$ python mp_worker.py 
+Client connecting to a server....
+
+Job done.
