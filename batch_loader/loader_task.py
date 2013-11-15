@@ -149,7 +149,7 @@ class TaskLoader(object):
         return row_count
 
 
-class eXTVRawChannel(TaskLoader):
+class Task1(TaskLoader):
 
     def __init__(self, **kwargs):
         TaskLoader.__init__(self, **kwargs)
