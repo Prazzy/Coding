@@ -23,11 +23,10 @@ console.log(PrintNodes(MakeList(3)));
 
 function ReverseList(head) {
    var node = head.next;
-    head.next = {};
    var prev = null;
    while (node) {
-       if (node.next) {saved = node.next;}
-       else {head.next = node; saved=null;}
+     if (node.next) {saved = node.next;}
+     else {head.next = node; saved=null;}
      node.next = prev;
      prev = node;
      node = saved;
@@ -36,7 +35,3 @@ function ReverseList(head) {
 }
 
 console.log(PrintNodes(ReverseList(MakeList(3))));
-
-
-
-
