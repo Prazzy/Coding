@@ -1,5 +1,4 @@
 
-
 function MakeNode(size) {
    head = {'data':'', 'next':null};
    prev = head;
@@ -13,3 +12,10 @@ function MakeNode(size) {
 }
 
 
+function PrintNodes(head) {
+  var node = head.next;
+  while (node) {
+    console.log(node.data);
+    node = node.next;  
+  }
+}
