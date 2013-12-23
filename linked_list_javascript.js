@@ -14,7 +14,7 @@ function MakeList(size) {
 function PrintNodes(head) {
   var node = head.next;
   while (node) {
-    console.log(node.data);
+      console.log("node: " + node.data);
     node = node.next;  
   }
 }
